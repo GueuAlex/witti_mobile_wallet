@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'screens/home/home.dart';
+import 'splash/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,27 +38,13 @@ class Witti extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        fontFamily: GoogleFonts.spaceGrotesk().fontFamily,
       ),
-      home: const WittiHome(),
-    );
-  }
-}
-
-class WittiHome extends StatefulWidget {
-  const WittiHome({super.key});
-
-  @override
-  State<WittiHome> createState() => _WittiHomeState();
-}
-
-class _WittiHomeState extends State<WittiHome> {
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Text('Home'),
-      ),
+      initialRoute: SplashScreen.routeName,
+      routes: {
+        '/': (context) => const WittiHome(),
+        SplashScreen.routeName: (context) => const SplashScreen(),
+      },
     );
   }
 }
