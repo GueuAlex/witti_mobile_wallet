@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:witti/widgets/go_back.dart';
 
-import '../../widgets/app_header.dart';
-import 'widgets/build_icons.dart';
-import 'widgets/credit_cards.dart';
-import 'widgets/last_transactions.dart';
-import 'widgets/row_actions_button.dart';
-import 'widgets/total_balance.dart';
-
-class WittiHome extends StatefulWidget {
-  static const routeName = '/';
-  const WittiHome({super.key});
+class QrcodeScreen extends StatefulWidget {
+  static const routeName = '/qrcodescreen';
+  const QrcodeScreen({super.key});
 
   @override
-  State<WittiHome> createState() => _WittiHomeState();
+  State<QrcodeScreen> createState() => _QrcodeScreenState();
 }
 
-class _WittiHomeState extends State<WittiHome> {
+class _QrcodeScreenState extends State<QrcodeScreen> {
   final RefreshController _controller =
       RefreshController(initialRefresh: false);
   @override
@@ -26,7 +19,9 @@ class _WittiHomeState extends State<WittiHome> {
         backgroundColor: Colors.white,
         body: Column(
           children: [
-            const AppHeader(),
+            const GoBack(
+              text: 'Scanner',
+            ),
             Expanded(
               child: SmartRefresher(
                 //onLoading: () => ,
@@ -46,16 +41,7 @@ class _WittiHomeState extends State<WittiHome> {
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TotalBalance(),
-                        Gap(8.0),
-                        CreditCards(),
-                        BuildIcons(),
-                        Gap(16.0),
-                        RowActionsButtons(),
-                        Gap(20.0),
-                        LastTransactions()
-                      ],
+                      children: [],
                     ),
                   ),
                 ),
