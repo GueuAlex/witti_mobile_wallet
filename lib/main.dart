@@ -7,6 +7,7 @@ import 'package:witti/screens/gift/gift_screen.dart';
 
 import 'screens/convert/convert_screen.dart';
 import 'screens/home/home.dart';
+import 'screens/product/product_details_screen.dart';
 import 'screens/qr_code/qrcode_screen.dart';
 import 'screens/request/request_screen.dart';
 import 'screens/send/send_screen.dart';
@@ -58,6 +59,8 @@ class Witti extends StatelessWidget {
         RequestScreen.routeName: (context) => const RequestScreen(),
         ConvertScreen.routeName: (context) => const ConvertScreen(),
         QrcodeScreen.routeName: (context) => const QrcodeScreen(),
+        ProductDetailsScreen.routeName: (context) =>
+            const ProductDetailsScreen(),
       },
     );
   }

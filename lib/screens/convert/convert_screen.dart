@@ -1,5 +1,5 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:witti/widgets/go_back.dart';
@@ -7,6 +7,8 @@ import 'package:witti/widgets/go_back.dart';
 import '../../config/constantes.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_keyboard.dart';
+import 'widgets/differences.dart';
+import 'widgets/draggable_sheet.dart';
 import 'widgets/row_card.dart';
 
 class ConvertScreen extends StatefulWidget {
@@ -19,7 +21,8 @@ class ConvertScreen extends StatefulWidget {
 
 class _ConvertScreenState extends State<ConvertScreen> {
   //
-  final _scrollController = DraggableScrollableController();
+
+  final _confettiController = ConfettiController();
   int _wcToXof({required String wc}) {
     if (wc.isEmpty) {
       return 0; // Retourne 0 si la chaîne est vide
@@ -28,6 +31,15 @@ class _ConvertScreenState extends State<ConvertScreen> {
   }
 
   int _resultXof = 0;
+  //
+  bool isPlaying = false;
+
+  @override
+  void dispose() {
+    _confettiController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +53,7 @@ class _ConvertScreenState extends State<ConvertScreen> {
               color: Constantes.primaryColor),
           Column(
             children: [
+              ConfettiWidget(confettiController: _confettiController),
               const GoBack(
                 text: 'Convertir vos wc en bons',
                 textColor: Colors.white,
@@ -100,6 +113,7 @@ class _ConvertScreenState extends State<ConvertScreen> {
                     text: 'Convertir',
                     onPress: () async {
                       await Future.delayed(const Duration(seconds: 3));
+
                       if (mounted) {
                         _showBottomSheet(context);
                       }
@@ -117,106 +131,21 @@ class _ConvertScreenState extends State<ConvertScreen> {
 
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
+      isDismissible: true,
       context: context,
       backgroundColor: Colors.transparent,
       barrierColor: Colors.black.withOpacity(0.5),
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(5),
+        ),
       ),
       builder: (context) {
-        return DraggableScrollableSheet(
-          controller: _scrollController,
-          initialChildSize: 0.4, // Hauteur initiale
-          minChildSize: 0.2, // Hauteur minimale
-          maxChildSize: 1, // Hauteur maximale
-          builder: (context, scrollController) {
-            return Container(
-              padding: const EdgeInsets.all(16),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(20),
-                ),
-              ),
-              child: ListView.builder(
-                controller: scrollController,
-                itemCount: 20,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('Item $index'),
-                  );
-                },
-              ),
-            );
-          },
+        return DraggableSheet(
+          voucherValue: _resultXof.toString(),
         );
       },
-    );
-  }
-}
-
-class Differences extends StatelessWidget {
-  const Differences({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      constraints: const BoxConstraints(maxWidth: 200),
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(50),
-        border: Border.all(color: Constantes.greyColor, width: 0.8),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.07),
-            offset: const Offset(0, 1),
-            blurRadius: 0,
-          ),
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            offset: const Offset(0, 2),
-            blurRadius: 2,
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            //padding: const EdgeInsets.all(8),
-            width: 40,
-            height: 40,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Constantes.primaryColor,
-            ),
-            child: Center(
-              child: SvgPicture.asset(
-                'assets/icon/echanger.svg',
-                width: 18,
-                colorFilter: const ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
-                ),
-              ),
-            ),
-          ),
-          const Gap(8.0),
-          Expanded(
-            child: Text(
-              '1 WC = 25 000 XOF',
-              style: GoogleFonts.spaceGrotesk(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          )
-        ],
-      ),
     );
   }
 }
