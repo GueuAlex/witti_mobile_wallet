@@ -26,7 +26,7 @@ class BarChartSample2State extends State<BarChartSample2> {
   @override
   void initState() {
     super.initState();
-    final barGroup1 = makeGroupData(0, 5, 12);
+    final barGroup1 = makeGroupData(0, 10, 12);
     final barGroup2 = makeGroupData(1, 16, 12);
     final barGroup3 = makeGroupData(2, 18, 5);
     final barGroup4 = makeGroupData(3, 20, 16);
@@ -61,24 +61,30 @@ class BarChartSample2State extends State<BarChartSample2> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 makeTransactionsIcon(),
-                const SizedBox(
-                  width: 38,
-                ),
-                const Text(
-                  'Transactions',
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 40, 46, 58), fontSize: 18),
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                Text(
-                  '7 derniers mois',
-                  style: GoogleFonts.spaceGrotesk(
-                    color: const Color(0xff77839a),
-                    fontSize: 14,
+                Expanded(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Transactions',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 40, 46, 58),
+                            fontSize: 18),
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      Text(
+                        '7 derniers mois',
+                        style: GoogleFonts.spaceGrotesk(
+                          color: const Color(0xff77839a),
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                )
               ],
             ),
             const SizedBox(
@@ -89,11 +95,43 @@ class BarChartSample2State extends State<BarChartSample2> {
                 BarChartData(
                   maxY: 20,
                   barTouchData: BarTouchData(
+                    enabled: true,
                     touchTooltipData: BarTouchTooltipData(
-                      getTooltipColor: ((group) {
-                        return Colors.grey;
-                      }),
-                      getTooltipItem: (a, b, c, d) => null,
+                      //tooltipBgColor: const Color(0xFF4C5773),
+                      tooltipRoundedRadius: 4,
+                      tooltipMargin: 8,
+                      getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                        // Get the day name based on the group index
+                        /* final titles = <String>[
+                          'Janv',
+                          'Fev',
+                          'Mars',
+                          'Avr',
+                          'Mai',
+                          'Juin',
+                          'Juil'
+                        ]; */
+                        // String dayName = titles[group.x.toInt()];
+
+                        // Format the value with + or - sign
+                        String value;
+                        if (rodIndex == 0) {
+                          // First bar (entry)
+                          value = '+${rod.toY.toStringAsFixed(1)}';
+                        } else {
+                          // Second bar (exit)
+                          value = '-${rod.toY.toStringAsFixed(1)}';
+                        }
+
+                        return BarTooltipItem(
+                          '$value\nJW',
+                          GoogleFonts.spaceGrotesk(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        );
+                      },
                     ),
                     touchCallback: (FlTouchEvent event, response) {
                       if (response == null || response.spot == null) {
@@ -113,26 +151,6 @@ class BarChartSample2State extends State<BarChartSample2> {
                           return;
                         }
                         showingBarGroups = List.of(rawBarGroups);
-                        if (touchedGroupIndex != -1) {
-                          var sum = 0.0;
-                          for (final rod
-                              in showingBarGroups[touchedGroupIndex].barRods) {
-                            sum += rod.toY;
-                          }
-                          final avg = sum /
-                              showingBarGroups[touchedGroupIndex]
-                                  .barRods
-                                  .length;
-
-                          showingBarGroups[touchedGroupIndex] =
-                              showingBarGroups[touchedGroupIndex].copyWith(
-                            barRods: showingBarGroups[touchedGroupIndex]
-                                .barRods
-                                .map((rod) {
-                              return rod.copyWith(toY: avg, color: avgColor);
-                            }).toList(),
-                          );
-                        }
                       });
                     },
                   ),

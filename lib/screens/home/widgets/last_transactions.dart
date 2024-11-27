@@ -31,7 +31,7 @@ class LastTransactions extends StatelessWidget {
                 AllTransaction.routeName,
               ),
               child: Text(
-                'View all',
+                'Voir plus',
                 textAlign: TextAlign.right,
                 style: GoogleFonts.spaceGrotesk(
                   color: const Color.fromARGB(255, 96, 96, 96),

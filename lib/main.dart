@@ -5,8 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:witti/screens/gift/gift_screen.dart';
 
+import 'screens/auth/auth_screen.dart';
+import 'screens/auth/otp_screen.dart';
+import 'screens/auth/registration.dart';
 import 'screens/convert/convert_screen.dart';
 import 'screens/home/home.dart';
+import 'screens/panier/panier_screen.dart';
 import 'screens/product/product_details_screen.dart';
 import 'screens/qr_code/qrcode_screen.dart';
 import 'screens/request/request_screen.dart';
@@ -61,6 +65,10 @@ class Witti extends StatelessWidget {
         QrcodeScreen.routeName: (context) => const QrcodeScreen(),
         ProductDetailsScreen.routeName: (context) =>
             const ProductDetailsScreen(),
+        PanierScreen.routeName: (context) => const PanierScreen(),
+        AuthScreen.routeName: (context) => const AuthScreen(),
+        OtpScreen.routeName: (context) => const OtpScreen(),
+        RegistrationScreen.routeName: (context) => const RegistrationScreen()
       },
     );
   }

@@ -49,6 +49,7 @@ dependencies:
   timeago: ^3.7.0
   fl_chart: ^0.69.0
   confetti: ^0.8.0
+  date_field: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -64,10 +65,12 @@ dev_dependencies:
   flutter_native_splash: ^2.4.3
 
 flutter_launcher_icons:
-  android: "launcher_icon"
+  android: true
   ios: true
-  image_path: "assets/icons/icon.png"
+  image_path: "assets/icon/icon.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
+  adaptive_icon_background: "#1f2b51" # ou un chemin d'image pour l'arrière-plan
+  adaptive_icon_foreground: "assets/icon/icon.png"
 
 flutter_native_splash:
   color: "#1f2b51"

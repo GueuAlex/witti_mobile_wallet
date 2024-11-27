@@ -21,7 +21,7 @@ class GoBack extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

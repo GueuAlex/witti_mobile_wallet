@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:witti/config/constantes.dart';
+import 'package:witti/screens/convert/widgets/product_card.dart';
 import 'package:witti/widgets/go_back.dart';
 
 class GiftScreen extends StatefulWidget {
@@ -22,6 +24,7 @@ class _GiftScreenState extends State<GiftScreen> {
             const GoBack(
               text: 'vos bons cabeaux',
             ),
+            //GiftCards(),
             Expanded(
               child: SmartRefresher(
                 //onLoading: () => ,
@@ -36,12 +39,20 @@ class _GiftScreenState extends State<GiftScreen> {
                   refreshingText: "",
                   releaseText: "",
                 ),
-                child: const SingleChildScrollView(
+                child: SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [],
+                      children: Constantes.data
+                          .sublist(0, 6)
+                          .map(
+                            (product) => ProductCard(
+                              product: product,
+                              isBonScreen: true,
+                            ),
+                          )
+                          .toList(),
                     ),
                   ),
                 ),

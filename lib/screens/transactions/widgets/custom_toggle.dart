@@ -12,7 +12,7 @@ class CustomToggle extends StatefulWidget {
 class _CustomToggleState extends State<CustomToggle> {
   //
   String value = '1M';
-  List<String> values = const ['1W', '1M', '3M', '1Y', 'ALL'];
+  List<String> values = const ['1W', '1M', '3M', '2Y', 'ALL'];
   @override
   Widget build(BuildContext context) {
     return Container(

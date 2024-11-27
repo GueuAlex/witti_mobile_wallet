@@ -54,10 +54,10 @@ class Differences extends StatelessWidget {
               ),
             ),
           ),
-          const Gap(8.0),
+          const Gap(4.0),
           Expanded(
             child: Text(
-              '1 WC = 25 000 XOF',
+              'Solde JW >= 50 JW',
               style: GoogleFonts.spaceGrotesk(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,

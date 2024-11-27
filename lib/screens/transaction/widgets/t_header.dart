@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../config/constantes.dart';
@@ -13,7 +13,7 @@ class TransHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDeposit = transaction['type'] == 'Deposit';
+    bool isDeposit = transaction['type'] == 'Dépôt';
     return Row(
       children: [
         Expanded(
@@ -27,7 +27,7 @@ class TransHeader extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              Text(
+              /* Text(
                 transaction['name'],
                 style: GoogleFonts.spaceGrotesk(
                   fontSize: 17,
@@ -35,7 +35,7 @@ class TransHeader extends StatelessWidget {
                   color: const Color.fromARGB(255, 97, 97, 97),
                 ),
               ),
-              const Gap(5),
+              const Gap(5), */
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
@@ -58,17 +58,22 @@ class TransHeader extends StatelessWidget {
           ),
         ),
         Container(
-          padding: const EdgeInsets.all(5),
-          width: 65,
-          height: 65,
-          decoration: const BoxDecoration(
-            color: Constantes.greyColor,
+          padding: const EdgeInsets.all(16),
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Constantes.greyColor.withOpacity(0.5),
             shape: BoxShape.circle,
           ),
-          child: Image.asset(
-            transaction['assetPath'],
+          child: SvgPicture.asset(
+            'assets/icon/signe-francais.svg',
+            //width: 16,
+            colorFilter: const ColorFilter.mode(
+              Color.fromARGB(255, 92, 92, 92),
+              BlendMode.srcIn,
+            ),
           ),
-        )
+        ),
       ],
     );
   }

@@ -23,7 +23,7 @@ class Indicator extends StatelessWidget {
               ),
               const SizedBox(width: 5),
               Text(
-                'Deposits',
+                'Dépôts',
                 style: GoogleFonts.spaceGrotesk(
                   fontSize: 12,
                   fontWeight: FontWeight.normal,
@@ -43,7 +43,7 @@ class Indicator extends StatelessWidget {
               ),
               const SizedBox(width: 5),
               Text(
-                'Withdrawals',
+                'Retraits',
                 style: GoogleFonts.spaceGrotesk(
                   fontSize: 12,
                   fontWeight: FontWeight.normal,

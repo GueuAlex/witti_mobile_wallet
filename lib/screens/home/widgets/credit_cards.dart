@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:witti/models/level_model.dart';
 
 import '../../../config/constantes.dart';
+import '../../../config/functions.dart';
 
 class CreditCards extends StatelessWidget {
   const CreditCards({super.key});
@@ -13,7 +15,8 @@ class CreditCards extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        height: 195.0,
+        height: 175.0,
+        scrollPhysics: const NeverScrollableScrollPhysics(),
         //height: height,
         // viewportFraction: 1.0,
         enlargeCenterPage: true,
@@ -28,14 +31,14 @@ class CreditCards extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             color: Colors.amber,
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.circular(13.0),
           ),
         ),
         Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             // color: Colors.red,
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.circular(13.0),
             image: const DecorationImage(
               image: AssetImage('assets/images/credit_card.png'),
               fit: BoxFit.cover,
@@ -65,11 +68,11 @@ class CreditCards extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SvgPicture.asset(
-                      'assets/icon/witti-coin.svg',
+                      LevelModel.currenteLevel.cardBagePath,
                       width: 75,
                     ),
                     Text(
-                      '0.000532 WC',
+                      '${Functions.numberFormat(LevelModel.currenteLevel.token)} JW',
                       style: GoogleFonts.spaceGrotesk(
                         color: Constantes.greyColor,
                         fontSize: 25,
@@ -130,7 +133,7 @@ class CreditCards extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             color: Colors.black,
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.circular(13.0),
           ),
         ),
       ],

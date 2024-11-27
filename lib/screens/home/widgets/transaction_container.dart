@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import '../../../config/constantes.dart';
 import '../../transaction/transaction_details.dart';
@@ -17,8 +18,9 @@ class TransactionContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     String hours = transaction['heure'];
     String status = transaction['status'];
-    bool isDeposit = transaction['type'] == 'Deposit';
+    bool isDeposit = transaction['type'] == 'Dépôt';
     String sign = isDeposit ? '+' : '-';
+    String date = DateFormat('dd-MM-yyyy', 'fr_FR').format(transaction['date']);
     return SizedBox(
       width: double.infinity,
       child: GestureDetector(
@@ -38,15 +40,20 @@ class TransactionContainer extends StatelessWidget {
                     child: Stack(
                       children: [
                         Container(
-                          padding: const EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(15),
                           width: 45,
                           height: 45,
-                          decoration: const BoxDecoration(
-                            color: Constantes.greyColor,
+                          decoration: BoxDecoration(
+                            color: Constantes.greyColor.withOpacity(0.5),
                             shape: BoxShape.circle,
                           ),
-                          child: Image.asset(
-                            transaction['assetPath'],
+                          child: SvgPicture.asset(
+                            'assets/icon/signe-francais.svg',
+                            //width: 16,
+                            colorFilter: const ColorFilter.mode(
+                              Color.fromARGB(255, 92, 92, 92),
+                              BlendMode.srcIn,
+                            ),
                           ),
                         ),
                         Positioned(
@@ -67,11 +74,13 @@ class TransactionContainer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        transaction['name'],
+                        '${transaction['type']} \u2022 $date',
                         style: GoogleFonts.spaceGrotesk(
-                          fontSize: 17,
+                          fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       const Gap(3),
                       Text(

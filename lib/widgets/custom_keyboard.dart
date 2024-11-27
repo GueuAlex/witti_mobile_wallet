@@ -7,8 +7,15 @@ import '../config/functions.dart';
 class CustomKeyboard extends StatefulWidget {
   final Function(String)? onChange;
   final String devise;
+  final bool withOutPut;
+  final double keyboardPadding;
 
-  const CustomKeyboard({super.key, this.onChange, this.devise = "XOF"});
+  const CustomKeyboard(
+      {super.key,
+      this.onChange,
+      this.devise = "XOF",
+      this.withOutPut = true,
+      this.keyboardPadding = 0.0});
 
   @override
   State<CustomKeyboard> createState() => _CustomKeyboardState();
@@ -36,10 +43,11 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
     return GestureDetector(
       onTap: () => _onKeyPressed(isBackspace ? "back" : label),
       child: Container(
+        padding: EdgeInsets.zero,
         margin: const EdgeInsets.all(8),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Colors.transparent,
+          // color: Colors.amber,
           borderRadius: BorderRadius.circular(8),
         ),
         child: isBackspace
@@ -58,20 +66,23 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          "${Functions.numberFormat(_output)} ${widget.devise}",
-          style: GoogleFonts.spaceGrotesk(
-            fontSize: 28,
-            fontWeight: FontWeight.w700,
+        if (widget.withOutPut)
+          Text(
+            "${Functions.numberFormat(_output)} ${widget.devise}",
+            style: GoogleFonts.spaceGrotesk(
+              fontSize: 28,
+              fontWeight: FontWeight.w700,
+            ),
           ),
-        ),
         const SizedBox(height: 20),
         Container(
           width: double.infinity,
           constraints: const BoxConstraints(maxHeight: 360),
-          height: 320,
+          padding: EdgeInsets.symmetric(horizontal: widget.keyboardPadding),
+          //height: 290,
+          color: Colors.transparent,
           child: GridView.builder(
-            padding: const EdgeInsets.only(top: 0, bottom: 0),
+            padding: EdgeInsets.zero,
             shrinkWrap: true,
             itemCount: 12,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

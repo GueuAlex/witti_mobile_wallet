@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:witti/config/functions.dart';
+
+import '../../../models/level_model.dart';
 
 class TotalBalance extends StatelessWidget {
   const TotalBalance({super.key, this.withLabel = true});
@@ -21,7 +24,7 @@ class TotalBalance extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '977 895.0 XOF',
+                  '${Functions.numberFormat(LevelModel.currenteLevel.balance)} XOF',
                   style: GoogleFonts.spaceGrotesk(
                     fontSize: 28,
                     fontWeight: FontWeight.w700,
@@ -32,7 +35,7 @@ class TotalBalance extends StatelessWidget {
           : Column(
               children: [
                 Text(
-                  '977 895.0 XOF',
+                  '${Functions.numberFormat(LevelModel.currenteLevel.balance)} XOF',
                   style: GoogleFonts.spaceGrotesk(
                     fontSize: 28,
                     fontWeight: FontWeight.w700,
@@ -40,7 +43,7 @@ class TotalBalance extends StatelessWidget {
                 ),
                 //const Gap(3),
                 Text(
-                  '+4.5% from last month',
+                  '+450 Jetons Witti',
                   textAlign: TextAlign.right,
                   style: GoogleFonts.spaceGrotesk(
                     color: const Color.fromARGB(255, 96, 96, 96),

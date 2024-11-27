@@ -1,8 +1,6 @@
 import '../screens/convert/convert_screen.dart';
 import '../screens/gift/gift_screen.dart';
 import '../screens/qr_code/qrcode_screen.dart';
-import '../screens/request/request_screen.dart';
-import '../screens/send/send_screen.dart';
 
 class ActionButton {
   final String title;
@@ -17,11 +15,11 @@ class ActionButton {
 
   static List<ActionButton> buttons = [
     ActionButton(
-      title: 'Convert',
+      title: 'Convertir',
       svg: 'assets/icon/convertir-des-formes.svg',
       route: ConvertScreen.routeName,
     ),
-    ActionButton(
+    /*  ActionButton(
       title: 'Envoyer',
       svg: 'assets/icon/envoyer-de-largent.svg',
       route: SendScreen.routeName,
@@ -30,7 +28,7 @@ class ActionButton {
       title: 'Recevoir',
       svg: 'assets/icon/recevoir-de-largent.svg',
       route: RequestScreen.routeName,
-    ),
+    ), */
     ActionButton(
       title: 'Bons',
       svg: 'assets/icon/avantages-du-coffret-cadeau.svg',

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -43,7 +44,7 @@ class Voucher extends StatelessWidget {
             children: [
               const Gap(12),
               Text(
-                '${Functions.numberFormat(value)} XOF',
+                '${Functions.numberFormat(value)} JW',
                 style: GoogleFonts.spaceGrotesk(
                   fontSize: 20,
                   height: -0.0005,
@@ -64,10 +65,11 @@ class Voucher extends StatelessWidget {
         ),
         CustomButton(
             color: Constantes.primaryColor,
-            width: 140,
-            height: 30,
+            width: 35,
+            height: 35,
             radius: 5,
-            text: 'Enregistrer',
+            text: '',
+            icon: Icons.save,
             onPress: () async {
               await Future.delayed(const Duration(seconds: 3));
             })

@@ -4,23 +4,25 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../config/constantes.dart';
 import '../../../config/functions.dart';
-import '../../product/product_details_screen.dart';
+import 'spinner_container.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
     super.key,
     required this.product,
+    this.isBonScreen = false,
   });
 
   final Map<String, dynamic> product;
+  final bool isBonScreen;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed(
+      /* onTap: () => Navigator.of(context).pushNamed(
         ProductDetailsScreen.routeName,
         arguments: product,
-      ),
+      ), */
       child: Row(
         children: [
           SizedBox(
@@ -34,6 +36,7 @@ class ProductCard extends StatelessWidget {
                   width: 85,
                   height: 85,
                   decoration: BoxDecoration(
+                    /*  color: product['color'].withOpacity(0.2), */
                     color: Constantes.greyColor,
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -54,68 +57,71 @@ class ProductCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  product['name'],
+                  product['lot'],
                   style: GoogleFonts.spaceGrotesk(
                     fontWeight: FontWeight.w600,
                     fontSize: 13.5,
                   ),
                 ),
                 Text(
-                  '${Functions.numberFormat(product['price'])} XOF',
+                  '${Functions.numberFormat(product['jeton'].toString())} JW',
                   style: GoogleFonts.spaceGrotesk(
                     fontWeight: FontWeight.w800,
                     fontSize: 16,
                   ),
                 ),
                 const Gap(3),
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () => _showCustomSnackbar(context),
-                      child: Container(
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Constantes.greyColor.withOpacity(0.5),
-                        ),
-                        child: const Center(
-                          child: Icon(
-                            Icons.remove,
-                            size: 15,
+                if (!isBonScreen)
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () => _showCustomSnackbar(context),
+                        child: Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Constantes.greyColor.withOpacity(0.5),
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.remove,
+                              size: 15,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const Gap(5),
-                    Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Constantes.greyColor.withOpacity(0.12),
-                      ),
-                      child: const Center(
-                        child: Text('0'),
-                      ),
-                    ),
-                    const Gap(5),
-                    GestureDetector(
-                      onTap: () => _showCustomSnackbar(context),
-                      child: Container(
+                      const Gap(5),
+                      Container(
                         padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          color: Constantes.greyColor,
+                          color: Constantes.greyColor.withOpacity(0.12),
                         ),
                         child: const Center(
-                          child: Icon(
-                            Icons.add,
-                            size: 15,
-                          ),
+                          child: Text('0'),
                         ),
                       ),
-                    )
-                  ],
-                )
+                      const Gap(5),
+                      GestureDetector(
+                        onTap: () => _showCustomSnackbar(context),
+                        child: Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Constantes.greyColor,
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.add,
+                              size: 15,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                else
+                  _getWidget(product['status'] ?? '', product['date'] ?? '')
               ],
             ),
           )
@@ -135,53 +141,9 @@ class ProductCard extends StatelessWidget {
         right: 20.0,
         child: Material(
           color: Colors.transparent,
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 200),
-            width: 200,
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(240, 43, 158, 139),
-              borderRadius: BorderRadius.circular(10),
-              /* boxShadow: const [
-                BoxShadow(
-                  color: Color.fromARGB(239, 80, 182, 110),
-                  blurRadius: 8.0,
-                  offset: Offset(0, 4),
-                ),
-              ], */
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Expanded(
-                  child: Text(
-                    "Ajouté à votre panier !",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                const SizedBox(width: 8.0),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 5,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Constantes.greyColor.withOpacity(0.4),
-                  ),
-                  child: const Row(
-                    children: [
-                      Icon(Icons.delete),
-                      Gap(5),
-                      Text(
-                        "Voir",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          child: SpinnerContainer(
+            color: Constantes.primaryColor,
+            child: Container(),
           ),
         ),
       ),
@@ -192,7 +154,52 @@ class ProductCard extends StatelessWidget {
     overlay.insert(overlayEntry);
 
     // Retire l'OverlayEntry après une durée
-    Future.delayed(const Duration(seconds: 3))
+    Future.delayed(const Duration(seconds: 7))
         .then((_) => overlayEntry.remove());
+  }
+
+  Widget _getWidget(String status, String date) {
+    if (status.isEmpty) return Container();
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(3),
+            color: _getColor(status),
+          ),
+          child: Text(
+            status,
+            style: GoogleFonts.spaceGrotesk(
+              color: const Color.fromARGB(255, 255, 255, 255),
+              fontSize: 12,
+            ),
+          ),
+        ),
+        const Gap(5),
+        Text(
+          date,
+          style: GoogleFonts.spaceGrotesk(
+            color: const Color.fromARGB(255, 82, 82, 82),
+            fontSize: 12,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Color _getColor(String status) {
+    switch (status) {
+      case 'Livré':
+        return const Color(0xFF4CAF50);
+
+      case 'Livraison dans 2 jours' || 'Livraison dans 4 jours':
+        return const Color(0xFFFFC107);
+      case 'Expiré':
+        return const Color(0xFFFF5722);
+      default:
+        return Colors.transparent;
+    }
   }
 }

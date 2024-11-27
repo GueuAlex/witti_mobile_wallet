@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../config/constantes.dart';
-import '../screens/home/home.dart';
+import '../screens/auth/auth_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   static const routeName = '/splash_screen';
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (mounted) {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        WittiHome.routeName,
+        AuthScreen.routeName,
         (route) => false,
       );
     }

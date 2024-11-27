@@ -13,16 +13,16 @@ class Tdetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final String date =
         DateFormat('EE d MMM yyyy', 'fr_FR').format(transaction['date']);
-    bool isDeposit = transaction['type'] == 'Deposit';
+    bool isDeposit = transaction['type'] == 'Dépôt';
     return Column(
       children: [
         _row(title: 'Date & heure', value: '$date à ${transaction['heure']}'),
         _row(title: 'Statut', value: transaction['status']),
         _row(title: 'Montant', value: transaction['amount']),
         _row(title: 'Frais witti', value: '3 400 XOF'),
-        if (transaction['status'] == 'Completed')
+        if (transaction['status'] == 'Confirmé')
           _row(
-            title: 'Witti coin',
+            title: 'Jeton Witti',
             value: isDeposit ? '+23.45' : '-23.45',
             color: isDeposit ? Colors.green : Colors.red,
           ),
@@ -65,7 +65,7 @@ class Tdetails extends StatelessWidget {
   }
 
   Widget _getStatus(String value) {
-    if (value == 'Pending') {
+    if (value == 'Suspendu') {
       return Text(
         value,
         style: GoogleFonts.spaceGrotesk(
@@ -75,7 +75,7 @@ class Tdetails extends StatelessWidget {
         ),
       );
     }
-    if (value == 'Completed') {
+    if (value == 'Confirmé') {
       return Text(
         value,
         style: GoogleFonts.spaceGrotesk(

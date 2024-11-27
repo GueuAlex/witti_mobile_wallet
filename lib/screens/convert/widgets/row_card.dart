@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:witti/config/functions.dart';
 
 import '../../../config/constantes.dart';
+import '../../../models/level_model.dart';
 
 class RowCard extends StatelessWidget {
   const RowCard({
@@ -50,7 +51,7 @@ class RowCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'WC',
+                        'Jetons Witti',
                         style: GoogleFonts.spaceGrotesk(
                           fontSize: 16.5,
                           fontWeight: FontWeight.w500,
@@ -58,7 +59,7 @@ class RowCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Witti Coin',
+                        'votre solde disponible',
                         style: GoogleFonts.spaceGrotesk(
                           height: 0,
                           color: const Color.fromARGB(255, 214, 214, 214),
@@ -68,7 +69,7 @@ class RowCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${Functions.numberFormat('523490')} WC',
+                  '${Functions.numberFormat(LevelModel.currenteLevel.token)} JW',
                   style: GoogleFonts.spaceGrotesk(
                     fontSize: 16.5,
                     fontWeight: FontWeight.w500,
